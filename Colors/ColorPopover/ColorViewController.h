@@ -22,5 +22,6 @@
 
 @property (nonatomic, strong) NSArray *colorCollection;
 @property (nonatomic, weak) id <ColorViewControllerDelegate> delegate;
+@property (nonatomic, assign) UIEdgeInsets contentInset;
 
 @end

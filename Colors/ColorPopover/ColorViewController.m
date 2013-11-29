@@ -15,8 +15,8 @@
 
 @implementation ColorViewController
 
-const CGSize kPortraitContentSize = { 240, 250 };
-const CGSize kLandscapeContentSize = { 320, 170 };
+const CGSize kPortraitContentSize = { 248, 258 };
+const CGSize kLandscapeContentSize = { 328, 178 };
 
 @synthesize delegate;
 
@@ -29,19 +29,27 @@ const CGSize kLandscapeContentSize = { 320, 170 };
 {
     [super viewDidLoad];
 
+	CGSize contentSize;
 	if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
 	{
-		self.contentSizeForViewInPopover = kPortraitContentSize;
+		contentSize = kPortraitContentSize;
 	}
 	else
 	{
-		self.contentSizeForViewInPopover = kLandscapeContentSize;
+		contentSize = kLandscapeContentSize;
 	}
+
+	contentSize.width+= self.contentInset.left + self.contentInset.right;
+	contentSize.height+= self.contentInset.top + self.contentInset.bottom;
+
+	self.contentSizeForViewInPopover = contentSize;
 
 	CGRect scrollViewFrame = CGRectZero;
 	scrollViewFrame.size = self.contentSizeForViewInPopover;
 	self.scrollView = [[UIScrollView alloc] initWithFrame:scrollViewFrame];
 	[self.view addSubview:self.scrollView];
+
+	self.scrollView.contentInset = self.contentInset;
 
 	[self createSimplyfiedOrdenatedColorsArray];
     [self setupColorButtonsForInterfaceOrientation:self.interfaceOrientation];
@@ -198,5 +206,27 @@ const CGSize kLandscapeContentSize = { 320, 170 };
     [delegate colorPopoverControllerDidSelectColor:btn.hexColor];
 }
 
+-(void) setContentInset:(UIEdgeInsets)contentInsets
+{
+	_contentInset = contentInsets;
+	if (self.scrollView)
+	{
+		self.scrollView.contentInset = contentInsets;
+		CGSize contentSize;
+		if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation))
+		{
+			contentSize = kPortraitContentSize;
+		}
+		else
+		{
+			contentSize = kLandscapeContentSize;
+		}
+
+		contentSize.width+= contentInsets.left + contentInsets.right;
+		contentSize.height+= contentInsets.top + contentInsets.bottom;
+
+		self.contentSizeForViewInPopover = contentSize;
+	}
+}
 
 @end
