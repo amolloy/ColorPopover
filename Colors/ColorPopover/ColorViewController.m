@@ -161,19 +161,12 @@ const CGSize kLandscapeContentSize = { 320, 170 };
 				colorButton.accessibilityLabel = [GzColors accessibilityLabelForColor:[self.colorCollection objectAtIndex:colorNumber]];
 				[colorButton setHexColor:[self.colorCollection objectAtIndex:colorNumber]];
 				
-				colorButton.layer.cornerRadius = 4;
+				colorButton.layer.cornerRadius = 6;
 				colorButton.layer.masksToBounds = YES;
-				colorButton.layer.borderColor = [UIColor blackColor].CGColor;
+				colorButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
 				colorButton.layer.borderWidth = 1.0f;
 				
 				colorButton.tag = colorNumber;
-				
-				CAGradientLayer *gradient = [CAGradientLayer layer];
-				gradient.frame = colorButton.bounds;
-				//               gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor blackColor] CGColor], (id)[[UIColor whiteColor] CGColor], nil];
-				gradient.colors = [NSArray arrayWithObjects:(id)[ [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.45] CGColor], (id)[[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.1]  CGColor], nil];
-				
-				[colorButton.layer insertSublayer:gradient atIndex:0];
 				
 				colorNumber ++;
 				
